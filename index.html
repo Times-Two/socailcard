@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Card - TheoCodesx</title>
+    <title>Social Media Card</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,53 +24,18 @@
 
         .container {
             background: white;
-            border-radius: 25px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
-            max-width: 550px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
             width: 100%;
-            padding: 45px;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header-logo {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .logo {
-            font-size: 32px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 1px;
-        }
-
-        .tagline {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            font-weight: 500;
+            padding: 40px;
         }
 
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 35px;
-            font-size: 26px;
-            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 28px;
         }
 
         .input-section {
@@ -79,217 +43,116 @@
         }
 
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
-            color: #444;
+            margin-bottom: 5px;
+            color: #555;
             font-weight: 600;
-            font-size: 13px;
-        }
-
-        .input-hint {
-            font-size: 11px;
-            color: #999;
-            font-weight: normal;
-            margin-left: 5px;
+            font-size: 14px;
         }
 
         input, textarea {
             width: 100%;
-            padding: 13px 15px;
+            padding: 12px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 14px;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
             font-family: inherit;
         }
 
         textarea {
             resize: vertical;
-            min-height: 70px;
+            min-height: 60px;
         }
 
         input:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            transition: transform 0.2s;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
         .btn:active {
             transform: translateY(0);
         }
 
-        .business-card {
-            margin: 40px 0;
-            perspective: 1000px;
+        .qr-card {
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            color: white;
             display: none;
         }
 
-        .business-card.show {
+        .qr-card.show {
             display: block;
-            animation: cardFlip 0.6s ease;
         }
 
-        @keyframes cardFlip {
-            from {
-                opacity: 0;
-                transform: rotateY(-20deg);
-            }
-            to {
-                opacity: 1;
-                transform: rotateY(0);
-            }
+        .qr-card-header {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
-        .card-inner {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
+        .qr-card-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
-        .card-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 30px;
-            color: white;
-        }
-
-        .card-user-info {
-            flex: 1;
-        }
-
-        .card-name {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .card-bio {
+        .qr-card-info {
             font-size: 14px;
-            opacity: 0.95;
-            line-height: 1.5;
-            margin-bottom: 5px;
+            opacity: 0.9;
+            line-height: 1.6;
         }
 
-        .card-info {
-            font-size: 13px;
-            opacity: 0.85;
-            line-height: 1.5;
-        }
-
-        .qr-section {
+        .qr-code-wrapper {
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
-            display: inline-block;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        #qrcode {
             display: flex;
             justify-content: center;
+            margin-bottom: 20px;
         }
 
         #qrcode canvas, #qrcode img {
             border-radius: 8px;
         }
 
-        .card-footer {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-        }
-
-        .scan-text {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        .powered-by {
-            text-align: right;
-            font-size: 11px;
+        .qr-card-footer {
+            text-align: center;
+            font-size: 13px;
             opacity: 0.8;
         }
 
-        .company-logo {
-            font-weight: 700;
-            font-size: 13px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .action-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
         .download-btn {
+            margin-top: 15px;
             background: white;
-            color: #2a5298;
-            padding: 12px;
-            font-size: 14px;
+            color: #667eea;
         }
 
         .download-btn:hover {
             background: #f0f0f0;
-        }
-
-        .share-btn {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
 
         .card-view {
@@ -298,351 +161,122 @@
 
         .profile-section {
             text-align: center;
-            margin-bottom: 35px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            color: white;
+            margin-bottom: 30px;
         }
 
         .profile-name {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
         }
 
         .profile-bio {
-            font-size: 15px;
-            line-height: 1.7;
-            opacity: 0.95;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .social-links {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         .social-link {
             display: flex;
             align-items: center;
-            padding: 18px 20px;
-            background: white;
-            border-radius: 15px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
             text-decoration: none;
             color: #333;
             transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            border: 2px solid transparent;
         }
 
         .social-link:hover {
-            transform: translateX(8px) scale(1.02);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
         }
 
-        .social-link i {
-            width: 28px;
-            height: 28px;
-            margin-right: 18px;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            font-weight: bold;
         }
-
-        .social-link span {
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .social-link.whatsapp:hover { border-color: #25D366; color: #25D366; }
-        .social-link.instagram:hover { border-color: #E4405F; color: #E4405F; }
-        .social-link.facebook:hover { border-color: #1877F2; color: #1877F2; }
-        .social-link.twitter:hover { border-color: #000000; color: #000000; }
-        .social-link.linkedin:hover { border-color: #0A66C2; color: #0A66C2; }
-        .social-link.tiktok:hover { border-color: #000000; color: #000000; }
-        .social-link.youtube:hover { border-color: #FF0000; color: #FF0000; }
 
         .back-btn {
-            margin-top: 25px;
+            margin-top: 20px;
             background: #6c757d;
         }
 
         .hidden {
             display: none;
         }
-
-        .footer-branding {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 2px solid #f0f0f0;
-        }
-
-        .footer-logo {
-            font-size: 18px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-text {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
-        }
-
-        .sponsor-badge {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            border-radius: 25px;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .sponsor-text {
-            font-size: 11px;
-            color: white;
-            opacity: 0.9;
-            font-weight: 600;
-        }
-
-        .sponsor-name {
-            font-size: 15px;
-            color: white;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 25px 20px;
-                border-radius: 20px;
-            }
-
-            .logo {
-                font-size: 26px;
-            }
-
-            h1 {
-                font-size: 22px;
-                margin-bottom: 25px;
-            }
-
-            .input-group {
-                margin-bottom: 15px;
-            }
-
-            input, textarea {
-                padding: 11px 13px;
-                font-size: 14px;
-            }
-
-            .btn {
-                padding: 14px;
-                font-size: 15px;
-            }
-
-            .business-card {
-                margin: 25px 0;
-            }
-
-            .card-inner {
-                padding: 25px 20px;
-            }
-
-            .card-header {
-                flex-direction: column;
-                gap: 20px;
-                margin-bottom: 20px;
-            }
-
-            .card-name {
-                font-size: 22px;
-            }
-
-            .card-bio {
-                font-size: 13px;
-            }
-
-            .card-info {
-                font-size: 12px;
-            }
-
-            .qr-section {
-                align-self: center;
-            }
-
-            #qrcode canvas, #qrcode img {
-                width: 150px !important;
-                height: 150px !important;
-            }
-
-            .card-footer {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-
-            .scan-text, .powered-by {
-                font-size: 11px;
-            }
-
-            .action-buttons {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .profile-section {
-                padding: 25px 20px;
-            }
-
-            .profile-name {
-                font-size: 26px;
-            }
-
-            .profile-bio {
-                font-size: 14px;
-            }
-
-            .social-link {
-                padding: 16px 18px;
-            }
-
-            .social-link i {
-                font-size: 20px;
-                width: 26px;
-            }
-
-            .social-link span {
-                font-size: 14px;
-            }
-
-            .footer-logo {
-                font-size: 16px;
-            }
-
-            .sponsor-badge {
-                padding: 8px 16px;
-            }
-
-            .sponsor-text {
-                font-size: 10px;
-            }
-
-            .sponsor-name {
-                font-size: 13px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="setupView">
-            <div class="header-logo">
-                <div class="logo">TheoCodesx</div>
-                <div class="tagline">Digital Business Card Creator</div>
-            </div>
-
-            <h1>🌟 Create Your Digital Card</h1>
-            
+            <h1>🎯 Social Media Card</h1>
             <div class="input-section">
                 <div class="input-group">
-                    <label for="name">Full Name *</label>
+                    <label for="name">Your Name *</label>
                     <input type="text" id="name" placeholder="John Doe">
                 </div>
                 <div class="input-group">
-                    <label for="bio">Professional Title</label>
+                    <label for="bio">Bio (Optional)</label>
                     <input type="text" id="bio" placeholder="Digital Creator & Developer">
                 </div>
                 <div class="input-group">
-                    <label for="info">Additional Information</label>
-                    <textarea id="info" placeholder="Company name, website, email, or any other professional details..."></textarea>
+                    <label for="info">Additional Information (Optional)</label>
+                    <textarea id="info" placeholder="Company, Job Title, Website, or any other info you want to share..."></textarea>
                 </div>
                 <div class="input-group">
-                    <label for="whatsapp">WhatsApp <span class="input-hint">(+233123456789)</span></label>
-                    <input type="text" id="whatsapp" placeholder="+233123456789">
+                    <label for="whatsapp">WhatsApp</label>
+                    <input type="text" id="whatsapp" placeholder="+233123456789 (with country code)">
                 </div>
                 <div class="input-group">
-                    <label for="instagram">Instagram <span class="input-hint">(username)</span></label>
-                    <input type="text" id="instagram" placeholder="johndoe">
+                    <label for="instagram">Instagram</label>
+                    <input type="text" id="instagram" placeholder="username">
                 </div>
                 <div class="input-group">
-                    <label for="facebook">Facebook <span class="input-hint">(username or URL)</span></label>
-                    <input type="text" id="facebook" placeholder="johndoe">
+                    <label for="facebook">Facebook</label>
+                    <input type="text" id="facebook" placeholder="username">
                 </div>
                 <div class="input-group">
-                    <label for="twitter">Twitter/X <span class="input-hint">(username)</span></label>
-                    <input type="text" id="twitter" placeholder="johndoe">
+                    <label for="twitter">Twitter/X</label>
+                    <input type="text" id="twitter" placeholder="username">
                 </div>
                 <div class="input-group">
-                    <label for="linkedin">LinkedIn <span class="input-hint">(username or URL)</span></label>
-                    <input type="text" id="linkedin" placeholder="johndoe">
+                    <label for="linkedin">LinkedIn</label>
+                    <input type="text" id="linkedin" placeholder="username">
                 </div>
                 <div class="input-group">
-                    <label for="tiktok">TikTok <span class="input-hint">(username)</span></label>
-                    <input type="text" id="tiktok" placeholder="johndoe">
+                    <label for="tiktok">TikTok</label>
+                    <input type="text" id="tiktok" placeholder="username">
                 </div>
                 <div class="input-group">
-                    <label for="youtube">YouTube <span class="input-hint">(@handle or URL)</span></label>
-                    <input type="text" id="youtube" placeholder="@johndoe">
+                    <label for="youtube">YouTube</label>
+                    <input type="text" id="youtube" placeholder="channel">
                 </div>
             </div>
+            <button class="btn" onclick="generateQR()">Generate QR Code</button>
             
-            <button class="btn" onclick="generateQR()">✨ Generate My Card</button>
-            
-            <div class="business-card" id="businessCard">
-                <div class="card-inner">
-                    <div class="card-pattern"></div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-user-info">
-                                <div class="card-name" id="cardName"></div>
-                                <div class="card-bio" id="cardBio"></div>
-                                <div class="card-info" id="cardInfo"></div>
-                            </div>
-                            <div class="qr-section">
-                                <div id="qrcode"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <div class="scan-text">
-                                <i class="fas fa-qrcode"></i> Scan to connect
-                            </div>
-                            <div class="powered-by">
-                                Powered by<br>
-                                <span class="company-logo">TheoCodesx</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="qr-card" id="qrCard">
+                <div class="qr-card-header">
+                    <div class="qr-card-name" id="cardName"></div>
+                    <div class="qr-card-info" id="cardInfo"></div>
                 </div>
-                
-                <div class="action-buttons">
-                    <button class="btn download-btn" onclick="downloadCard()">
-                        <i class="fas fa-download"></i> Download Card
-                    </button>
-                    <button class="btn share-btn" onclick="shareCard()">
-                        <i class="fas fa-share-alt"></i> Share Link
-                    </button>
+                <div class="qr-code-wrapper">
+                    <div id="qrcode"></div>
                 </div>
-            </div>
-
-            <div class="footer-branding">
-                <div class="footer-logo">TheoCodesx</div>
-                <div class="footer-text">Professional Digital Business Cards</div>
-                <div class="sponsor-badge">
-                    <div class="sponsor-text">Sponsored by</div>
-                    <div class="sponsor-name">AXIM TV</div>
+                <div class="qr-card-footer">
+                    Scan this code to view all my social media links
                 </div>
+                <button class="btn download-btn" onclick="downloadCard()">📥 Download Card</button>
             </div>
         </div>
 
@@ -652,89 +286,24 @@
                 <div class="profile-bio" id="displayBio"></div>
             </div>
             <div class="social-links" id="socialLinks"></div>
-            <button class="btn back-btn" onclick="location.reload()">
-                <i class="fas fa-plus"></i> Create Your Own Card
-            </button>
-            
-            <div class="footer-branding">
-                <div class="footer-logo">TheoCodesx</div>
-                <div class="footer-text">Get your digital business card today</div>
-                <div class="sponsor-badge">
-                    <div class="sponsor-text">Sponsored by</div>
-                    <div class="sponsor-name">AXIM TV</div>
-                </div>
-            </div>
+            <button class="btn back-btn" onclick="location.reload()">Create New Card</button>
         </div>
     </div>
 
     <script>
         let userData = {};
-        let generatedURL = '';
-
-        function normalizeURL(input, platform) {
-            if (!input) return '';
-            
-            input = input.trim();
-            
-            if (input.startsWith('http://') || input.startsWith('https://')) {
-                return input;
-            }
-            
-            input = input.replace('@', '');
-            
-            switch(platform) {
-                case 'whatsapp':
-                    const phone = input.replace(/[^\d+]/g, '');
-                    return `https://wa.me/${phone}`;
-                
-                case 'instagram':
-                    return `https://instagram.com/${input}`;
-                
-                case 'facebook':
-                    return `https://facebook.com/${input}`;
-                
-                case 'twitter':
-                    return `https://twitter.com/${input}`;
-                
-                case 'linkedin':
-                    if (input.includes('linkedin.com')) {
-                        return input.startsWith('http') ? input : `https://${input}`;
-                    }
-                    return `https://linkedin.com/in/${input}`;
-                
-                case 'tiktok':
-                    return `https://tiktok.com/@${input}`;
-                
-                case 'youtube':
-                    if (input.includes('youtube.com') || input.includes('youtu.be')) {
-                        return input.startsWith('http') ? input : `https://${input}`;
-                    }
-                    if (input.startsWith('@')) {
-                        return `https://youtube.com/${input}`;
-                    }
-                    return `https://youtube.com/@${input}`;
-                
-                default:
-                    return input;
-            }
-        }
 
         function generateQR() {
-            const name = document.getElementById('name').value.trim();
-            if (!name) {
-                alert('Please enter your name');
-                return;
-            }
-
-            const bio = document.getElementById('bio').value.trim();
-            const info = document.getElementById('info').value.trim();
-            const whatsapp = document.getElementById('whatsapp').value.trim();
-            const instagram = document.getElementById('instagram').value.trim();
-            const facebook = document.getElementById('facebook').value.trim();
-            const twitter = document.getElementById('twitter').value.trim();
-            const linkedin = document.getElementById('linkedin').value.trim();
-            const tiktok = document.getElementById('tiktok').value.trim();
-            const youtube = document.getElementById('youtube').value.trim();
+            const name = document.getElementById('name').value || 'User';
+            const bio = document.getElementById('bio').value;
+            const info = document.getElementById('info').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const instagram = document.getElementById('instagram').value;
+            const facebook = document.getElementById('facebook').value;
+            const twitter = document.getElementById('twitter').value;
+            const linkedin = document.getElementById('linkedin').value;
+            const tiktok = document.getElementById('tiktok').value;
+            const youtube = document.getElementById('youtube').value;
 
             userData = {
                 name,
@@ -752,158 +321,92 @@
             };
 
             const dataStr = JSON.stringify(userData);
-            const encodedData = btoa(encodeURIComponent(dataStr));
-            generatedURL = window.location.href.split('?')[0] + '?data=' + encodedData;
+            const pageURL = window.location.href.split('?')[0] + '?data=' + encodeURIComponent(btoa(dataStr));
 
             const qrcodeDiv = document.getElementById('qrcode');
             qrcodeDiv.innerHTML = '';
             
-            try {
-                new QRCode(qrcodeDiv, {
-                    text: generatedURL,
-                    width: 180,
-                    height: 180,
-                    colorDark: '#000000',
-                    colorLight: '#ffffff',
-                    correctLevel: QRCode.CorrectLevel.H
-                });
-            } catch (e) {
-                console.error('QR Code generation error:', e);
-                alert('Error generating QR code. Please try again.');
-                return;
-            }
+            new QRCode(qrcodeDiv, {
+                text: pageURL,
+                width: 200,
+                height: 200,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
 
             document.getElementById('cardName').textContent = name;
-            document.getElementById('cardBio').textContent = bio || '';
-            document.getElementById('cardInfo').textContent = info || '';
             
-            document.getElementById('businessCard').classList.add('show');
+            let cardInfoText = '';
+            if (bio) cardInfoText += bio;
+            if (info) cardInfoText += (cardInfoText ? '\n' : '') + info;
+            document.getElementById('cardInfo').textContent = cardInfoText;
+            document.getElementById('cardInfo').style.whiteSpace = 'pre-line';
+            
+            document.getElementById('qrCard').classList.add('show');
             
             setTimeout(() => {
-                document.getElementById('businessCard').scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center' 
-                });
+                document.getElementById('qrCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
         }
 
         function downloadCard() {
+            const card = document.getElementById('qrCard');
+            
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             
-            // Higher resolution for better QR code quality
-            const cardWidth = 1200;
-            const cardHeight = 700;
+            const cardWidth = 800;
+            const cardHeight = 600;
             canvas.width = cardWidth;
             canvas.height = cardHeight;
             
             const gradient = ctx.createLinearGradient(0, 0, cardWidth, cardHeight);
-            gradient.addColorStop(0, '#1e3c72');
-            gradient.addColorStop(1, '#2a5298');
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, cardWidth, cardHeight);
             
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 52px Arial';
-            ctx.textAlign = 'left';
-            ctx.fillText(userData.name, 70, 110);
+            ctx.font = 'bold 42px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(userData.name, cardWidth / 2, 80);
             
-            ctx.font = '24px Arial';
+            ctx.font = '20px Arial';
             if (userData.bio) {
-                ctx.fillText(userData.bio, 70, 155);
+                ctx.fillText(userData.bio, cardWidth / 2, 120);
             }
             
             if (userData.info) {
                 const lines = userData.info.split('\n');
-                let y = userData.bio ? 195 : 155;
-                ctx.font = '20px Arial';
-                lines.forEach((line, index) => {
-                    if (index < 4) {
-                        ctx.fillText(line, 70, y);
-                        y += 32;
-                    }
+                let y = userData.bio ? 155 : 120;
+                lines.forEach(line => {
+                    ctx.fillText(line, cardWidth / 2, y);
+                    y += 30;
                 });
             }
             
-            // Get QR code canvas and draw it larger for better scanning
             const qrCanvas = document.querySelector('#qrcode canvas');
             if (qrCanvas) {
-                const qrSize = 280; // Larger QR code
-                const qrX = cardWidth - qrSize - 100;
-                const qrY = 70;
+                const qrSize = 250;
+                const qrX = (cardWidth - qrSize) / 2;
+                const qrY = userData.info || userData.bio ? 220 : 180;
                 
-                // White background for QR code
                 ctx.fillStyle = 'white';
-                ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                ctx.shadowBlur = 15;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 5;
                 ctx.fillRect(qrX - 20, qrY - 20, qrSize + 40, qrSize + 40);
-                ctx.shadowColor = 'transparent';
                 
-                // Draw QR code with smoothing disabled for crisp edges
-                ctx.imageSmoothingEnabled = false;
                 ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
-                ctx.imageSmoothingEnabled = true;
             }
             
-            // Footer line
-            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(70, cardHeight - 120);
-            ctx.lineTo(cardWidth - 70, cardHeight - 120);
-            ctx.stroke();
-            
-            // Footer text
             ctx.fillStyle = 'white';
             ctx.font = '18px Arial';
-            ctx.textAlign = 'left';
-            ctx.fillText('Scan to connect', 70, cardHeight - 75);
+            ctx.textAlign = 'center';
+            ctx.fillText('Scan to view all my social media links', cardWidth / 2, cardHeight - 40);
             
-            // Company branding
-            ctx.textAlign = 'right';
-            ctx.font = '15px Arial';
-            ctx.fillText('Powered by', cardWidth - 70, cardHeight - 85);
-            ctx.font = 'bold 20px Arial';
-            const gradientText = ctx.createLinearGradient(cardWidth - 250, 0, cardWidth - 70, 0);
-            gradientText.addColorStop(0, '#ffd700');
-            gradientText.addColorStop(1, '#ffed4e');
-            ctx.fillStyle = gradientText;
-            ctx.fillText('TheoCodesx', cardWidth - 70, cardHeight - 55);
-            
-            // Sponsor text
-            ctx.font = '13px Arial';
-            ctx.fillStyle = 'rgba(255,255,255,0.75)';
-            ctx.fillText('Sponsored by AXIM TV', cardWidth - 70, cardHeight - 30);
-            
-            // Convert to high-quality PNG
             const link = document.createElement('a');
-            link.download = `${userData.name.replace(/\s+/g, '_')}_Business_Card.png`;
-            link.href = canvas.toDataURL('image/png', 1.0);
+            link.download = `${userData.name.replace(/\s+/g, '_')}_QR_Card.png`;
+            link.href = canvas.toDataURL();
             link.click();
-        }
-
-        function shareCard() {
-            if (navigator.share) {
-                navigator.share({
-                    title: `${userData.name}'s Digital Card`,
-                    text: `Connect with ${userData.name}`,
-                    url: generatedURL
-                }).catch(() => {
-                    copyToClipboard();
-                });
-            } else {
-                copyToClipboard();
-            }
-        }
-
-        function copyToClipboard() {
-            navigator.clipboard.writeText(generatedURL).then(() => {
-                alert('Link copied to clipboard! Share it with anyone.');
-            }).catch(() => {
-                prompt('Copy this link:', generatedURL);
-            });
         }
 
         function displayCard(data) {
@@ -922,26 +425,24 @@
             linksContainer.innerHTML = '';
 
             const socialPlatforms = {
-                whatsapp: { icon: 'fab fa-whatsapp', name: 'WhatsApp', class: 'whatsapp' },
-                instagram: { icon: 'fab fa-instagram', name: 'Instagram', class: 'instagram' },
-                facebook: { icon: 'fab fa-facebook', name: 'Facebook', class: 'facebook' },
-                twitter: { icon: 'fab fa-x-twitter', name: 'Twitter/X', class: 'twitter' },
-                linkedin: { icon: 'fab fa-linkedin', name: 'LinkedIn', class: 'linkedin' },
-                tiktok: { icon: 'fab fa-tiktok', name: 'TikTok', class: 'tiktok' },
-                youtube: { icon: 'fab fa-youtube', name: 'YouTube', class: 'youtube' }
+                whatsapp: { url: 'https://wa.me/', icon: '💬', name: 'WhatsApp' },
+                instagram: { url: 'https://instagram.com/', icon: '📷', name: 'Instagram' },
+                facebook: { url: 'https://facebook.com/', icon: '📘', name: 'Facebook' },
+                twitter: { url: 'https://twitter.com/', icon: '🐦', name: 'Twitter/X' },
+                linkedin: { url: 'https://linkedin.com/in/', icon: '💼', name: 'LinkedIn' },
+                tiktok: { url: 'https://tiktok.com/@', icon: '🎵', name: 'TikTok' },
+                youtube: { url: 'https://youtube.com/', icon: '📺', name: 'YouTube' }
             };
 
             for (let [platform, username] of Object.entries(data.socials)) {
                 if (username) {
                     const info = socialPlatforms[platform];
-                    const url = normalizeURL(username, platform);
-                    
                     const link = document.createElement('a');
-                    link.href = url;
+                    link.href = info.url + username;
                     link.target = '_blank';
-                    link.className = `social-link ${info.class}`;
+                    link.className = 'social-link';
                     link.innerHTML = `
-                        <i class="${info.icon}"></i>
+                        <span class="social-icon">${info.icon}</span>
                         <span>${info.name}</span>
                     `;
                     linksContainer.appendChild(link);
@@ -955,11 +456,10 @@
             
             if (data) {
                 try {
-                    const decodedData = JSON.parse(decodeURIComponent(atob(data)));
+                    const decodedData = JSON.parse(atob(data));
                     displayCard(decodedData);
                 } catch (e) {
                     console.error('Error parsing data:', e);
-                    alert('Error loading card. Please request a new link.');
                 }
             }
         };
