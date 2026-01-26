@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Card</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -52,6 +53,13 @@
             color: #555;
             font-weight: 600;
             font-size: 14px;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+            margin-left: 5px;
         }
 
         input, textarea {
@@ -200,12 +208,23 @@
             transform: translateX(5px);
         }
 
-        .social-icon {
+        .social-link i {
             width: 24px;
             height: 24px;
             margin-right: 15px;
-            font-weight: bold;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        .social-link.whatsapp:hover { background: #25D366; }
+        .social-link.instagram:hover { background: #E4405F; }
+        .social-link.facebook:hover { background: #1877F2; }
+        .social-link.twitter:hover { background: #000000; }
+        .social-link.linkedin:hover { background: #0A66C2; }
+        .social-link.tiktok:hover { background: #000000; }
+        .social-link.youtube:hover { background: #FF0000; }
 
         .back-btn {
             margin-top: 20px;
@@ -235,32 +254,32 @@
                     <textarea id="info" placeholder="Company, Job Title, Website, or any other info you want to share..."></textarea>
                 </div>
                 <div class="input-group">
-                    <label for="whatsapp">WhatsApp</label>
-                    <input type="text" id="whatsapp" placeholder="+233123456789 (with country code)">
+                    <label for="whatsapp">WhatsApp <span class="input-hint">(phone number with country code)</span></label>
+                    <input type="text" id="whatsapp" placeholder="+233123456789">
                 </div>
                 <div class="input-group">
-                    <label for="instagram">Instagram</label>
-                    <input type="text" id="instagram" placeholder="username">
+                    <label for="instagram">Instagram <span class="input-hint">(username only)</span></label>
+                    <input type="text" id="instagram" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="facebook">Facebook</label>
-                    <input type="text" id="facebook" placeholder="username">
+                    <label for="facebook">Facebook <span class="input-hint">(username or profile URL)</span></label>
+                    <input type="text" id="facebook" placeholder="johndoe or full URL">
                 </div>
                 <div class="input-group">
-                    <label for="twitter">Twitter/X</label>
-                    <input type="text" id="twitter" placeholder="username">
+                    <label for="twitter">Twitter/X <span class="input-hint">(username only)</span></label>
+                    <input type="text" id="twitter" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="linkedin">LinkedIn</label>
-                    <input type="text" id="linkedin" placeholder="username">
+                    <label for="linkedin">LinkedIn <span class="input-hint">(username or full URL)</span></label>
+                    <input type="text" id="linkedin" placeholder="johndoe or full URL">
                 </div>
                 <div class="input-group">
-                    <label for="tiktok">TikTok</label>
-                    <input type="text" id="tiktok" placeholder="username">
+                    <label for="tiktok">TikTok <span class="input-hint">(username only)</span></label>
+                    <input type="text" id="tiktok" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="youtube">YouTube</label>
-                    <input type="text" id="youtube" placeholder="channel">
+                    <label for="youtube">YouTube <span class="input-hint">(channel name, @handle, or full URL)</span></label>
+                    <input type="text" id="youtube" placeholder="@johndoe or full URL">
                 </div>
             </div>
             <button class="btn" onclick="generateQR()">Generate QR Code</button>
@@ -292,6 +311,61 @@
 
     <script>
         let userData = {};
+
+        function normalizeURL(input, platform) {
+            if (!input) return '';
+            
+            input = input.trim();
+            
+            // If it's already a full URL, return it
+            if (input.startsWith('http://') || input.startsWith('https://')) {
+                return input;
+            }
+            
+            // Remove @ symbol if present
+            input = input.replace('@', '');
+            
+            // Platform-specific URL building
+            switch(platform) {
+                case 'whatsapp':
+                    // Remove any non-numeric characters except +
+                    const phone = input.replace(/[^\d+]/g, '');
+                    return `https://wa.me/${phone}`;
+                
+                case 'instagram':
+                    return `https://instagram.com/${input}`;
+                
+                case 'facebook':
+                    return `https://facebook.com/${input}`;
+                
+                case 'twitter':
+                    return `https://twitter.com/${input}`;
+                
+                case 'linkedin':
+                    // Check if it contains 'linkedin.com'
+                    if (input.includes('linkedin.com')) {
+                        return input.startsWith('http') ? input : `https://${input}`;
+                    }
+                    return `https://linkedin.com/in/${input}`;
+                
+                case 'tiktok':
+                    return `https://tiktok.com/@${input}`;
+                
+                case 'youtube':
+                    // Check if it contains 'youtube.com'
+                    if (input.includes('youtube.com') || input.includes('youtu.be')) {
+                        return input.startsWith('http') ? input : `https://${input}`;
+                    }
+                    // Check if it's a @handle
+                    if (input.startsWith('@')) {
+                        return `https://youtube.com/${input}`;
+                    }
+                    return `https://youtube.com/@${input}`;
+                
+                default:
+                    return input;
+            }
+        }
 
         function generateQR() {
             const name = document.getElementById('name').value || 'User';
@@ -425,24 +499,26 @@
             linksContainer.innerHTML = '';
 
             const socialPlatforms = {
-                whatsapp: { url: 'https://wa.me/', icon: '💬', name: 'WhatsApp' },
-                instagram: { url: 'https://instagram.com/', icon: '📷', name: 'Instagram' },
-                facebook: { url: 'https://facebook.com/', icon: '📘', name: 'Facebook' },
-                twitter: { url: 'https://twitter.com/', icon: '🐦', name: 'Twitter/X' },
-                linkedin: { url: 'https://linkedin.com/in/', icon: '💼', name: 'LinkedIn' },
-                tiktok: { url: 'https://tiktok.com/@', icon: '🎵', name: 'TikTok' },
-                youtube: { url: 'https://youtube.com/', icon: '📺', name: 'YouTube' }
+                whatsapp: { icon: 'fab fa-whatsapp', name: 'WhatsApp', class: 'whatsapp' },
+                instagram: { icon: 'fab fa-instagram', name: 'Instagram', class: 'instagram' },
+                facebook: { icon: 'fab fa-facebook', name: 'Facebook', class: 'facebook' },
+                twitter: { icon: 'fab fa-x-twitter', name: 'Twitter/X', class: 'twitter' },
+                linkedin: { icon: 'fab fa-linkedin', name: 'LinkedIn', class: 'linkedin' },
+                tiktok: { icon: 'fab fa-tiktok', name: 'TikTok', class: 'tiktok' },
+                youtube: { icon: 'fab fa-youtube', name: 'YouTube', class: 'youtube' }
             };
 
             for (let [platform, username] of Object.entries(data.socials)) {
                 if (username) {
                     const info = socialPlatforms[platform];
+                    const url = normalizeURL(username, platform);
+                    
                     const link = document.createElement('a');
-                    link.href = info.url + username;
+                    link.href = url;
                     link.target = '_blank';
-                    link.className = 'social-link';
+                    link.className = `social-link ${info.class}`;
                     link.innerHTML = `
-                        <span class="social-icon">${info.icon}</span>
+                        <i class="${info.icon}"></i>
                         <span>${info.name}</span>
                     `;
                     linksContainer.appendChild(link);
