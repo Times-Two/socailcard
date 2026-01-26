@@ -231,6 +231,27 @@
             letter-spacing: 0.5px;
         }
 
+        .card-contact {
+            font-size: 12px;
+            opacity: 0.85;
+            line-height: 1.6;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-item {
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-item i {
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+        }
+
         .qr-section {
             background: white;
             padding: 15px;
@@ -333,6 +354,15 @@
             letter-spacing: 0.5px;
         }
 
+        .profile-contact {
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .social-links {
             display: flex;
             flex-direction: column;
@@ -372,6 +402,16 @@
             font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .contact-link {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .contact-link:hover {
+            border-color: #667eea;
+            color: #667eea;
         }
 
         .social-link.whatsapp:hover { border-color: #25D366; color: #25D366; }
@@ -441,6 +481,11 @@
             text-transform: uppercase;
         }
 
+        .required {
+            color: #ff4757;
+            font-weight: bold;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 10px;
@@ -496,7 +541,7 @@
                 font-size: 13px;
             }
 
-            .card-info {
+            .card-info, .card-contact {
                 font-size: 12px;
             }
 
@@ -532,11 +577,11 @@
                 font-size: 26px;
             }
 
-            .profile-bio {
+            .profile-bio, .profile-contact {
                 font-size: 14px;
             }
 
-            .social-link {
+            .social-link, .contact-link {
                 padding: 16px 18px;
             }
 
@@ -579,8 +624,20 @@
             
             <div class="input-section">
                 <div class="input-group">
-                    <label for="name">FULL NAME *</label>
-                    <input type="text" id="name" placeholder="JOHN DOE">
+                    <label for="name">FULL NAME <span class="required">*</span></label>
+                    <input type="text" id="name" placeholder="JOHN DOE" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">PHONE NUMBER <span class="required">*</span></label>
+                    <input type="tel" id="phone" placeholder="+233123456789" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">EMAIL ADDRESS <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="JOHN@EXAMPLE.COM" required>
+                </div>
+                <div class="input-group">
+                    <label for="website">WEBSITE</label>
+                    <input type="url" id="website" placeholder="HTTPS://EXAMPLE.COM">
                 </div>
                 <div class="input-group">
                     <label for="bio">PROFESSIONAL TITLE</label>
@@ -588,8 +645,13 @@
                 </div>
                 <div class="input-group">
                     <label for="info">ADDITIONAL INFORMATION</label>
-                    <textarea id="info" placeholder="COMPANY NAME, WEBSITE, EMAIL, OR ANY OTHER PROFESSIONAL DETAILS..."></textarea>
+                    <textarea id="info" placeholder="COMPANY NAME, ADDRESS, OR ANY OTHER PROFESSIONAL DETAILS..."></textarea>
                 </div>
+                
+                <div class="input-group" style="margin-top: 25px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
+                    <label style="color: #667eea; font-size: 14px;">SOCIAL MEDIA LINKS (OPTIONAL)</label>
+                </div>
+                
                 <div class="input-group">
                     <label for="whatsapp">WHATSAPP <span class="input-hint">(+233123456789)</span></label>
                     <input type="text" id="whatsapp" placeholder="+233123456789">
@@ -631,6 +693,7 @@
                                 <div class="card-name" id="cardName"></div>
                                 <div class="card-bio" id="cardBio"></div>
                                 <div class="card-info" id="cardInfo"></div>
+                                <div class="card-contact" id="cardContact"></div>
                             </div>
                             <div class="qr-section">
                                 <div id="qrcode"></div>
@@ -673,6 +736,7 @@
             <div class="profile-section">
                 <div class="profile-name" id="displayName"></div>
                 <div class="profile-bio" id="displayBio"></div>
+                <div class="profile-contact" id="displayContact"></div>
             </div>
             <div class="social-links" id="socialLinks"></div>
             <button class="btn back-btn" onclick="location.reload()">
@@ -697,7 +761,7 @@
         function normalizeURL(input, platform) {
             if (!input || input.trim() === '') return '';
             
-            input = input.trim();
+            input = input.trim().toLowerCase();
             
             // Remove any @ symbols from the beginning
             input = input.replace(/^@+/, '');
@@ -717,35 +781,47 @@
                     return `https://wa.me/${phone}`;
                 
                 case 'instagram':
-                    return `https://instagram.com/${input.toLowerCase()}`;
+                    return `https://instagram.com/${input}`;
                 
                 case 'facebook':
-                    return `https://facebook.com/${input.toLowerCase()}`;
+                    return `https://facebook.com/${input}`;
                 
                 case 'twitter':
-                    return `https://twitter.com/${input.toLowerCase()}`;
+                    return `https://twitter.com/${input}`;
                 
                 case 'linkedin':
                     // Check if it's a LinkedIn URL
-                    if (input.toLowerCase().includes('linkedin.com')) {
+                    if (input.includes('linkedin.com')) {
                         return input.startsWith('http') ? input : `https://${input}`;
                     }
-                    return `https://linkedin.com/in/${input.toLowerCase()}`;
+                    return `https://linkedin.com/in/${input}`;
                 
                 case 'tiktok':
-                    return `https://tiktok.com/@${input.toLowerCase()}`;
+                    return `https://tiktok.com/@${input}`;
                 
                 case 'youtube':
                     // Check if it's already a YouTube URL
-                    if (input.toLowerCase().includes('youtube.com') || input.toLowerCase().includes('youtu.be')) {
+                    if (input.includes('youtube.com') || input.includes('youtu.be')) {
                         return input.startsWith('http') ? input : `https://${input}`;
                     }
                     // If it starts with @, use the proper format
                     if (input.startsWith('@')) {
-                        return `https://youtube.com/${input.toLowerCase()}`;
+                        return `https://youtube.com/${input}`;
                     }
                     // Otherwise assume it's a channel name
-                    return `https://youtube.com/c/${input.toLowerCase()}`;
+                    return `https://youtube.com/c/${input}`;
+                
+                case 'email':
+                    return `mailto:${input}`;
+                
+                case 'phone':
+                    return `tel:${input}`;
+                
+                case 'website':
+                    if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                        return `https://${input}`;
+                    }
+                    return input;
                 
                 default:
                     return input;
@@ -758,11 +834,25 @@
 
         function generateQR() {
             const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
             if (!name) {
                 alert('PLEASE ENTER YOUR NAME');
                 return;
             }
+            
+            if (!phone) {
+                alert('PLEASE ENTER YOUR PHONE NUMBER');
+                return;
+            }
+            
+            if (!email) {
+                alert('PLEASE ENTER YOUR EMAIL ADDRESS');
+                return;
+            }
 
+            const website = document.getElementById('website').value.trim();
             const bio = document.getElementById('bio').value.trim();
             const info = document.getElementById('info').value.trim();
             const whatsapp = document.getElementById('whatsapp').value.trim();
@@ -776,8 +866,16 @@
             // Create user data object with normalized URLs
             userData = {
                 name: toUpperCase(name),
+                phone: phone,
+                email: email.toLowerCase(),
+                website: website,
                 bio: toUpperCase(bio),
                 info: toUpperCase(info),
+                contact: {
+                    phone: normalizeURL(phone, 'phone'),
+                    email: normalizeURL(email, 'email'),
+                    website: normalizeURL(website, 'website')
+                },
                 socials: {
                     whatsapp: normalizeURL(whatsapp, 'whatsapp'),
                     instagram: normalizeURL(instagram, 'instagram'),
@@ -823,6 +921,31 @@
             document.getElementById('cardBio').textContent = userData.bio || '';
             document.getElementById('cardInfo').textContent = userData.info || '';
             
+            // Update contact information
+            const contactElement = document.getElementById('cardContact');
+            contactElement.innerHTML = '';
+            
+            if (userData.phone) {
+                const phoneDiv = document.createElement('div');
+                phoneDiv.className = 'contact-item';
+                phoneDiv.innerHTML = `<i class="fas fa-phone"></i> ${toUpperCase(userData.phone)}`;
+                contactElement.appendChild(phoneDiv);
+            }
+            
+            if (userData.email) {
+                const emailDiv = document.createElement('div');
+                emailDiv.className = 'contact-item';
+                emailDiv.innerHTML = `<i class="fas fa-envelope"></i> ${toUpperCase(userData.email)}`;
+                contactElement.appendChild(emailDiv);
+            }
+            
+            if (userData.website) {
+                const websiteDiv = document.createElement('div');
+                websiteDiv.className = 'contact-item';
+                websiteDiv.innerHTML = `<i class="fas fa-globe"></i> ${toUpperCase(userData.website)}`;
+                contactElement.appendChild(websiteDiv);
+            }
+            
             // Show the card
             document.getElementById('businessCard').classList.add('show');
             
@@ -841,7 +964,7 @@
             
             // Higher resolution for better quality
             const cardWidth = 1400;
-            const cardHeight = 800;
+            const cardHeight = 900;
             canvas.width = cardWidth;
             canvas.height = cardHeight;
             
@@ -864,15 +987,34 @@
                 ctx.fillText(toUpperCase(userData.bio), 80, 170);
             }
             
+            // Contact Info - ALL CAPS
+            let y = userData.bio ? 220 : 170;
+            ctx.font = '22px Arial';
+            
+            if (userData.phone) {
+                ctx.fillText(`PHONE: ${toUpperCase(userData.phone)}`, 80, y);
+                y += 35;
+            }
+            
+            if (userData.email) {
+                ctx.fillText(`EMAIL: ${toUpperCase(userData.email)}`, 80, y);
+                y += 35;
+            }
+            
+            if (userData.website) {
+                ctx.fillText(`WEB: ${toUpperCase(userData.website)}`, 80, y);
+                y += 35;
+            }
+            
             // Additional info - ALL CAPS
             if (userData.info) {
                 const lines = userData.info.split('\n');
-                let y = userData.bio ? 215 : 170;
-                ctx.font = '22px Arial';
+                y += 10;
+                ctx.font = '20px Arial';
                 lines.forEach((line, index) => {
-                    if (index < 4) {
+                    if (index < 3 && line.trim()) {
                         ctx.fillText(toUpperCase(line), 80, y);
-                        y += 35;
+                        y += 30;
                     }
                 });
             }
@@ -945,7 +1087,7 @@
             if (navigator.share) {
                 navigator.share({
                     title: `${toUpperCase(userData.name)}'S DIGITAL CARD`,
-                    text: `CONNECT WITH ${toUpperCase(userData.name)}`,
+                    text: `CONNECT WITH ${toUpperCase(userData.name)} - ${userData.phone} - ${userData.email}`,
                     url: generatedURL
                 }).catch(() => {
                     copyToClipboard();
@@ -983,9 +1125,64 @@
             document.getElementById('displayBio').textContent = bioText;
             document.getElementById('displayBio').style.whiteSpace = 'pre-line';
             
+            // Display contact info
+            const contactElement = document.getElementById('displayContact');
+            let contactText = '';
+            if (data.phone) contactText += toUpperCase(data.phone);
+            if (data.email) contactText += (contactText ? ' • ' : '') + toUpperCase(data.email);
+            if (data.website) contactText += (contactText ? ' • ' : '') + toUpperCase(data.website);
+            contactElement.textContent = contactText;
+            
             const linksContainer = document.getElementById('socialLinks');
             linksContainer.innerHTML = '';
 
+            // Add contact links first
+            const contactPlatforms = {
+                phone: { icon: 'fas fa-phone', name: 'CALL', class: 'contact-link', url: data.contact?.phone || `tel:${data.phone}` },
+                email: { icon: 'fas fa-envelope', name: 'EMAIL', class: 'contact-link', url: data.contact?.email || `mailto:${data.email}` },
+                website: { icon: 'fas fa-globe', name: 'WEBSITE', class: 'contact-link', url: data.contact?.website || (data.website?.startsWith('http') ? data.website : `https://${data.website}`) }
+            };
+
+            // Add contact links
+            if (data.phone) {
+                const info = contactPlatforms.phone;
+                const link = document.createElement('a');
+                link.href = info.url;
+                link.className = `social-link ${info.class}`;
+                link.innerHTML = `
+                    <i class="${info.icon}"></i>
+                    <span>${info.name}: ${toUpperCase(data.phone)}</span>
+                `;
+                linksContainer.appendChild(link);
+            }
+
+            if (data.email) {
+                const info = contactPlatforms.email;
+                const link = document.createElement('a');
+                link.href = info.url;
+                link.className = `social-link ${info.class}`;
+                link.innerHTML = `
+                    <i class="${info.icon}"></i>
+                    <span>${info.name}: ${toUpperCase(data.email)}</span>
+                `;
+                linksContainer.appendChild(link);
+            }
+
+            if (data.website) {
+                const info = contactPlatforms.website;
+                const link = document.createElement('a');
+                link.href = info.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = `social-link ${info.class}`;
+                link.innerHTML = `
+                    <i class="${info.icon}"></i>
+                    <span>${info.name}: ${toUpperCase(data.website.replace(/^https?:\/\//, ''))}</span>
+                `;
+                linksContainer.appendChild(link);
+            }
+
+            // Social media links
             const socialPlatforms = {
                 whatsapp: { icon: 'fab fa-whatsapp', name: 'WHATSAPP', class: 'whatsapp' },
                 instagram: { icon: 'fab fa-instagram', name: 'INSTAGRAM', class: 'instagram' },
@@ -997,7 +1194,7 @@
             };
 
             // Create social links
-            for (let [platform, url] of Object.entries(data.socials)) {
+            for (let [platform, url] of Object.entries(data.socials || {})) {
                 if (url && url.trim() !== '') {
                     const info = socialPlatforms[platform];
                     
@@ -1014,9 +1211,9 @@
                 }
             }
             
-            // If no social links were added, show a message - ALL CAPS
+            // If no links were added, show a message - ALL CAPS
             if (linksContainer.children.length === 0) {
-                linksContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic; text-transform: uppercase;">NO SOCIAL MEDIA LINKS AVAILABLE</p>';
+                linksContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic; text-transform: uppercase;">NO CONTACT OR SOCIAL MEDIA LINKS AVAILABLE</p>';
             }
         }
 
@@ -1050,7 +1247,7 @@
                     const decodedData = JSON.parse(decodedStr);
                     
                     // Validate the data structure
-                    if (!decodedData.name) {
+                    if (!decodedData.name || !decodedData.phone || !decodedData.email) {
                         throw new Error('Invalid card data');
                     }
                     
