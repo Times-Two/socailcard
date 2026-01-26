@@ -54,16 +54,22 @@
             font-size: 14px;
         }
 
-        input {
+        input, textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 14px;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
-        input:focus {
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        input:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -89,17 +95,64 @@
             transform: translateY(0);
         }
 
-        #qrcode {
+        .qr-card {
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            color: white;
+            display: none;
+        }
+
+        .qr-card.show {
+            display: block;
+        }
+
+        .qr-card-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .qr-card-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .qr-card-info {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .qr-code-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
             display: flex;
             justify-content: center;
-            margin: 30px 0;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
         #qrcode canvas, #qrcode img {
             border-radius: 8px;
+        }
+
+        .qr-card-footer {
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .download-btn {
+            margin-top: 15px;
+            background: white;
+            color: #667eea;
+        }
+
+        .download-btn:hover {
+            background: #f0f0f0;
         }
 
         .card-view {
@@ -121,6 +174,7 @@
         .profile-bio {
             color: #666;
             font-size: 14px;
+            line-height: 1.6;
         }
 
         .social-links {
@@ -169,12 +223,20 @@
             <h1>🎯 Social Media Card</h1>
             <div class="input-section">
                 <div class="input-group">
-                    <label for="name">Your Name</label>
+                    <label for="name">Your Name *</label>
                     <input type="text" id="name" placeholder="John Doe">
                 </div>
                 <div class="input-group">
                     <label for="bio">Bio (Optional)</label>
                     <input type="text" id="bio" placeholder="Digital Creator & Developer">
+                </div>
+                <div class="input-group">
+                    <label for="info">Additional Information (Optional)</label>
+                    <textarea id="info" placeholder="Company, Job Title, Website, or any other info you want to share..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="whatsapp">WhatsApp</label>
+                    <input type="text" id="whatsapp" placeholder="+233123456789 (with country code)">
                 </div>
                 <div class="input-group">
                     <label for="instagram">Instagram</label>
@@ -202,7 +264,20 @@
                 </div>
             </div>
             <button class="btn" onclick="generateQR()">Generate QR Code</button>
-            <div id="qrcode"></div>
+            
+            <div class="qr-card" id="qrCard">
+                <div class="qr-card-header">
+                    <div class="qr-card-name" id="cardName"></div>
+                    <div class="qr-card-info" id="cardInfo"></div>
+                </div>
+                <div class="qr-code-wrapper">
+                    <div id="qrcode"></div>
+                </div>
+                <div class="qr-card-footer">
+                    Scan this code to view all my social media links
+                </div>
+                <button class="btn download-btn" onclick="downloadCard()">📥 Download Card</button>
+            </div>
         </div>
 
         <div id="cardView" class="card-view">
@@ -221,6 +296,8 @@
         function generateQR() {
             const name = document.getElementById('name').value || 'User';
             const bio = document.getElementById('bio').value;
+            const info = document.getElementById('info').value;
+            const whatsapp = document.getElementById('whatsapp').value;
             const instagram = document.getElementById('instagram').value;
             const facebook = document.getElementById('facebook').value;
             const twitter = document.getElementById('twitter').value;
@@ -231,7 +308,9 @@
             userData = {
                 name,
                 bio,
+                info,
                 socials: {
+                    whatsapp,
                     instagram,
                     facebook,
                     twitter,
@@ -255,6 +334,79 @@
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
             });
+
+            document.getElementById('cardName').textContent = name;
+            
+            let cardInfoText = '';
+            if (bio) cardInfoText += bio;
+            if (info) cardInfoText += (cardInfoText ? '\n' : '') + info;
+            document.getElementById('cardInfo').textContent = cardInfoText;
+            document.getElementById('cardInfo').style.whiteSpace = 'pre-line';
+            
+            document.getElementById('qrCard').classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById('qrCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function downloadCard() {
+            const card = document.getElementById('qrCard');
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const cardWidth = 800;
+            const cardHeight = 600;
+            canvas.width = cardWidth;
+            canvas.height = cardHeight;
+            
+            const gradient = ctx.createLinearGradient(0, 0, cardWidth, cardHeight);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, cardWidth, cardHeight);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 42px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(userData.name, cardWidth / 2, 80);
+            
+            ctx.font = '20px Arial';
+            if (userData.bio) {
+                ctx.fillText(userData.bio, cardWidth / 2, 120);
+            }
+            
+            if (userData.info) {
+                const lines = userData.info.split('\n');
+                let y = userData.bio ? 155 : 120;
+                lines.forEach(line => {
+                    ctx.fillText(line, cardWidth / 2, y);
+                    y += 30;
+                });
+            }
+            
+            const qrCanvas = document.querySelector('#qrcode canvas');
+            if (qrCanvas) {
+                const qrSize = 250;
+                const qrX = (cardWidth - qrSize) / 2;
+                const qrY = userData.info || userData.bio ? 220 : 180;
+                
+                ctx.fillStyle = 'white';
+                ctx.fillRect(qrX - 20, qrY - 20, qrSize + 40, qrSize + 40);
+                
+                ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
+            }
+            
+            ctx.fillStyle = 'white';
+            ctx.font = '18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Scan to view all my social media links', cardWidth / 2, cardHeight - 40);
+            
+            const link = document.createElement('a');
+            link.download = `${userData.name.replace(/\s+/g, '_')}_QR_Card.png`;
+            link.href = canvas.toDataURL();
+            link.click();
         }
 
         function displayCard(data) {
@@ -262,12 +414,18 @@
             document.getElementById('cardView').style.display = 'block';
             
             document.getElementById('displayName').textContent = data.name;
-            document.getElementById('displayBio').textContent = data.bio || '';
+            
+            let bioText = '';
+            if (data.bio) bioText += data.bio;
+            if (data.info) bioText += (bioText ? '\n\n' : '') + data.info;
+            document.getElementById('displayBio').textContent = bioText;
+            document.getElementById('displayBio').style.whiteSpace = 'pre-line';
             
             const linksContainer = document.getElementById('socialLinks');
             linksContainer.innerHTML = '';
 
             const socialPlatforms = {
+                whatsapp: { url: 'https://wa.me/', icon: '💬', name: 'WhatsApp' },
                 instagram: { url: 'https://instagram.com/', icon: '📷', name: 'Instagram' },
                 facebook: { url: 'https://facebook.com/', icon: '📘', name: 'Facebook' },
                 twitter: { url: 'https://twitter.com/', icon: '🐦', name: 'Twitter/X' },
