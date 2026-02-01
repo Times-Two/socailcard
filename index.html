@@ -1030,10 +1030,10 @@
                 y += 35;
             }
             
-            if (userData.email) {
-                ctx.fillText(`EMAIL: ${toUpperCase(userData.email)}`, 80, y);
-                y += 35;
-            }
+           if (userData.email) {
+    ctx.fillText(`EMAIL: ${userData.email.toLowerCase()}`, 80, y);
+    y += 35;
+}
             
             if (userData.website) {
                 ctx.fillText(`WEB: ${toUpperCase(userData.website.replace(/^https?:\/\//, ''))}`, 80, y);
@@ -1054,9 +1054,9 @@
             
             const qrCanvas = document.querySelector('#qrcode canvas');
             if (qrCanvas) {
-                const qrSize = 340;
-                const qrX = cardWidth - qrSize - 120;
-                const qrY = 80;
+                const qrSize = 450;
+                const qrX = cardWidth - qrSize - 220;
+                const qrY = 150;
                 
                 ctx.fillStyle = 'white';
                 ctx.shadowColor = 'rgba(0,0,0,0.3)';
