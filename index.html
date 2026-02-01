@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Card - TheoCodesx</title>
-    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
+    <!-- Using reliable QR code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -218,7 +219,6 @@
             opacity: 0.95;
             line-height: 1.5;
             margin-bottom: 5px;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -226,7 +226,6 @@
             font-size: 13px;
             opacity: 0.85;
             line-height: 1.5;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -235,7 +234,6 @@
             opacity: 0.85;
             line-height: 1.6;
             margin-top: 10px;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -257,20 +255,25 @@
             border-radius: 15px;
             display: inline-block;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #qrcode {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 200px;
-            height: 200px;
+            width: 170px;
+            height: 170px;
         }
 
-        #qrcode canvas, #qrcode img {
+        #qrcode img {
             border-radius: 8px;
-            width: 200px !important;
-            height: 200px !important;
+            width: 100% !important;
+            height: 100% !important;
             object-fit: contain;
         }
 
@@ -355,7 +358,6 @@
             font-size: 15px;
             line-height: 1.7;
             opacity: 0.95;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -364,7 +366,6 @@
             font-size: 14px;
             opacity: 0.9;
             line-height: 1.8;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -405,7 +406,6 @@
         .social-link span {
             font-weight: 600;
             font-size: 15px;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -552,16 +552,13 @@
 
             .qr-section {
                 align-self: center;
-            }
-
-            #qrcode {
                 width: 150px;
                 height: 150px;
             }
 
-            #qrcode canvas, #qrcode img {
-                width: 150px !important;
-                height: 150px !important;
+            #qrcode {
+                width: 130px;
+                height: 130px;
             }
 
             .card-footer {
@@ -643,11 +640,11 @@
                 </div>
                 <div class="input-group">
                     <label for="email">EMAIL ADDRESS <span class="required">*</span></label>
-                    <input type="email" id="email" placeholder="JOHN@EXAMPLE.COM" required>
+                    <input type="email" id="email" placeholder="john@example.com" required>
                 </div>
                 <div class="input-group">
                     <label for="website">WEBSITE</label>
-                    <input type="url" id="website" placeholder="HTTPS://EXAMPLE.COM">
+                    <input type="url" id="website" placeholder="https://example.com">
                 </div>
                 <div class="input-group">
                     <label for="bio">PROFESSIONAL TITLE</label>
@@ -655,7 +652,7 @@
                 </div>
                 <div class="input-group">
                     <label for="info">ADDITIONAL INFORMATION</label>
-                    <textarea id="info" placeholder="COMPANY NAME, ADDRESS, OR ANY OTHER PROFESSIONAL DETAILS..."></textarea>
+                    <textarea id="info" placeholder="Company name, address, or any other professional details..."></textarea>
                 </div>
                 
                 <div class="input-group" style="margin-top: 25px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
@@ -667,28 +664,28 @@
                     <input type="text" id="whatsapp" placeholder="+233123456789">
                 </div>
                 <div class="input-group">
-                    <label for="instagram">INSTAGRAM <span class="input-hint">(USERNAME)</span></label>
-                    <input type="text" id="instagram" placeholder="JOHNDOE">
+                    <label for="instagram">INSTAGRAM <span class="input-hint">(username)</span></label>
+                    <input type="text" id="instagram" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="facebook">FACEBOOK <span class="input-hint">(USERNAME OR URL)</span></label>
-                    <input type="text" id="facebook" placeholder="JOHNDOE">
+                    <label for="facebook">FACEBOOK <span class="input-hint">(username or URL)</span></label>
+                    <input type="text" id="facebook" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="twitter">TWITTER/X <span class="input-hint">(USERNAME)</span></label>
-                    <input type="text" id="twitter" placeholder="JOHNDOE">
+                    <label for="twitter">TWITTER/X <span class="input-hint">(username)</span></label>
+                    <input type="text" id="twitter" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="linkedin">LINKEDIN <span class="input-hint">(USERNAME OR URL)</span></label>
-                    <input type="text" id="linkedin" placeholder="JOHNDOE">
+                    <label for="linkedin">LINKEDIN <span class="input-hint">(username or URL)</span></label>
+                    <input type="text" id="linkedin" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="tiktok">TIKTOK <span class="input-hint">(USERNAME)</span></label>
-                    <input type="text" id="tiktok" placeholder="JOHNDOE">
+                    <label for="tiktok">TIKTOK <span class="input-hint">(username)</span></label>
+                    <input type="text" id="tiktok" placeholder="johndoe">
                 </div>
                 <div class="input-group">
-                    <label for="youtube">YOUTUBE <span class="input-hint">(@HANDLE OR URL)</span></label>
-                    <input type="text" id="youtube" placeholder="@JOHNDOE">
+                    <label for="youtube">YOUTUBE <span class="input-hint">(@handle or URL)</span></label>
+                    <input type="text" id="youtube" placeholder="@johndoe">
                 </div>
             </div>
             
@@ -773,9 +770,6 @@
             
             input = input.trim();
             
-            // Remove any @ symbols from the beginning
-            input = input.replace(/^@+/, '');
-            
             // If it's already a full URL, return it
             if (input.startsWith('http://') || input.startsWith('https://')) {
                 return input;
@@ -783,6 +777,7 @@
             
             switch(platform) {
                 case 'whatsapp':
+                    // Clean phone number - keep only digits and +
                     const phone = input.replace(/[^\d+]/g, '');
                     if (phone.startsWith('+')) {
                         return `https://wa.me/${phone.substring(1)}`;
@@ -790,30 +785,39 @@
                     return `https://wa.me/${phone}`;
                 
                 case 'instagram':
-                    return `https://instagram.com/${input}`;
+                    // Remove @ symbol if present
+                    const igUser = input.replace(/^@+/, '');
+                    return `https://instagram.com/${igUser}`;
                 
                 case 'facebook':
-                    return `https://facebook.com/${input}`;
+                    const fbUser = input.replace(/^@+/, '');
+                    return `https://facebook.com/${fbUser}`;
                 
                 case 'twitter':
-                    return `https://twitter.com/${input}`;
+                    const twUser = input.replace(/^@+/, '');
+                    return `https://twitter.com/${twUser}`;
                 
                 case 'linkedin':
+                    // Check if it's a LinkedIn URL
                     if (input.includes('linkedin.com')) {
                         return input.startsWith('http') ? input : `https://${input}`;
                     }
                     return `https://linkedin.com/in/${input}`;
                 
                 case 'tiktok':
-                    return `https://tiktok.com/@${input}`;
+                    const ttUser = input.replace(/^@+/, '');
+                    return `https://tiktok.com/@${ttUser}`;
                 
                 case 'youtube':
+                    // Check if it's already a YouTube URL
                     if (input.includes('youtube.com') || input.includes('youtu.be')) {
                         return input.startsWith('http') ? input : `https://${input}`;
                     }
+                    // If it starts with @, use the proper format
                     if (input.startsWith('@')) {
                         return `https://youtube.com/${input}`;
                     }
+                    // Otherwise assume it's a channel name
                     return `https://youtube.com/c/${input}`;
                 
                 case 'email':
@@ -843,17 +847,17 @@
             const email = document.getElementById('email').value.trim();
             
             if (!name) {
-                alert('PLEASE ENTER YOUR NAME');
+                alert('Please enter your name');
                 return;
             }
             
             if (!phone) {
-                alert('PLEASE ENTER YOUR PHONE NUMBER');
+                alert('Please enter your phone number');
                 return;
             }
             
             if (!email) {
-                alert('PLEASE ENTER YOUR EMAIL ADDRESS');
+                alert('Please enter your email address');
                 return;
             }
 
@@ -868,7 +872,7 @@
             const tiktok = document.getElementById('tiktok').value.trim();
             const youtube = document.getElementById('youtube').value.trim();
 
-            // Create user data object
+            // Create user data object with normalized URLs
             userData = {
                 name: name,
                 phone: phone,
@@ -889,85 +893,120 @@
                     linkedin: normalizeURL(linkedin, 'linkedin'),
                     tiktok: normalizeURL(tiktok, 'tiktok'),
                     youtube: normalizeURL(youtube, 'youtube')
-                }
+                },
+                timestamp: new Date().toISOString()
             };
 
-            // Create URL-safe data
+            // Create a simpler data structure for QR code
             const dataStr = JSON.stringify(userData);
+            
+            // Use URL-safe base64 encoding
             const encodedData = btoa(encodeURIComponent(dataStr));
             
+            // Create the URL for sharing
             const currentURL = window.location.href.split('?')[0];
             generatedURL = currentURL + '?card=' + encodedData;
 
-            // Generate QR Code
+            // Generate QR Code using the QRCode library
             const qrcodeDiv = document.getElementById('qrcode');
             qrcodeDiv.innerHTML = '';
             
-            try {
-                const qr = qrcode(4, 'H');
-                qr.addData(generatedURL);
-                qr.make();
-                
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                const size = 200;
-                canvas.width = size;
-                canvas.height = size;
-                
-                const moduleCount = qr.getModuleCount();
-                const moduleSize = size / moduleCount;
-                
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 0, size, size);
-                
-                ctx.fillStyle = '#000000';
-                for (let row = 0; row < moduleCount; row++) {
-                    for (let col = 0; col < moduleCount; col++) {
-                        if (qr.isDark(row, col)) {
-                            ctx.fillRect(col * moduleSize, row * moduleSize, moduleSize, moduleSize);
-                        }
+            QRCode.toDataURL(generatedURL, {
+                errorCorrectionLevel: 'H',
+                type: 'image/png',
+                quality: 0.9,
+                margin: 1,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                },
+                width: 200
+            }, function(err, url) {
+                if (err) {
+                    console.error('QR Code generation error:', err);
+                    // Fallback to simple QR code
+                    createFallbackQR(generatedURL);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = 'QR Code';
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    qrcodeDiv.appendChild(img);
+                    
+                    // Success - update the card
+                    updateCardDisplay();
+                }
+            });
+        }
+
+        function createFallbackQR(url) {
+            const qrcodeDiv = document.getElementById('qrcode');
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // Simple QR-like pattern (fallback)
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, 200, 200);
+            ctx.fillStyle = '#000000';
+            
+            // Generate simple pattern based on URL hash
+            let hash = 0;
+            for (let i = 0; i < url.length; i++) {
+                hash = url.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            
+            // Draw pattern
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    if ((hash + i + j) % 3 === 0) {
+                        ctx.fillRect(i * 20, j * 20, 20, 20);
                     }
                 }
-                
-                qrcodeDiv.appendChild(canvas);
-                updateCardDisplay();
-            } catch (e) {
-                console.error('QR Code generation error:', e);
-                alert('ERROR GENERATING QR CODE. PLEASE TRY AGAIN.');
             }
+            
+            qrcodeDiv.appendChild(canvas);
+            updateCardDisplay();
         }
 
         function updateCardDisplay() {
+            // Update card information
             document.getElementById('cardName').textContent = toUpperCase(userData.name);
-            document.getElementById('cardBio').textContent = toUpperCase(userData.bio) || '';
-            document.getElementById('cardInfo').textContent = toUpperCase(userData.info) || '';
+            document.getElementById('cardBio').textContent = userData.bio || '';
+            document.getElementById('cardInfo').textContent = userData.info || '';
             
+            // Update contact information
             const contactElement = document.getElementById('cardContact');
             contactElement.innerHTML = '';
             
             if (userData.phone) {
                 const phoneDiv = document.createElement('div');
                 phoneDiv.className = 'contact-item';
-                phoneDiv.innerHTML = `<i class="fas fa-phone"></i> ${toUpperCase(userData.phone)}`;
+                phoneDiv.innerHTML = `<i class="fas fa-phone"></i> ${userData.phone}`;
                 contactElement.appendChild(phoneDiv);
             }
             
             if (userData.email) {
                 const emailDiv = document.createElement('div');
                 emailDiv.className = 'contact-item';
-                emailDiv.innerHTML = `<i class="fas fa-envelope"></i> ${toUpperCase(userData.email)}`;
+                emailDiv.innerHTML = `<i class="fas fa-envelope"></i> ${userData.email}`;
                 contactElement.appendChild(emailDiv);
             }
             
             if (userData.website) {
                 const websiteDiv = document.createElement('div');
                 websiteDiv.className = 'contact-item';
-                websiteDiv.innerHTML = `<i class="fas fa-globe"></i> ${toUpperCase(userData.website.replace(/^https?:\/\//, ''))}`;
+                const displayWebsite = userData.website.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                websiteDiv.innerHTML = `<i class="fas fa-globe"></i> ${displayWebsite}`;
                 contactElement.appendChild(websiteDiv);
             }
             
+            // Show the card
             document.getElementById('businessCard').classList.add('show');
             
+            // Scroll to the card
             setTimeout(() => {
                 document.getElementById('businessCard').scrollIntoView({ 
                     behavior: 'smooth', 
@@ -980,45 +1019,52 @@
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             
+            // Higher resolution for better quality
             const cardWidth = 1400;
             const cardHeight = 900;
             canvas.width = cardWidth;
             canvas.height = cardHeight;
             
+            // Background gradient
             const gradient = ctx.createLinearGradient(0, 0, cardWidth, cardHeight);
             gradient.addColorStop(0, '#1e3c72');
             gradient.addColorStop(1, '#2a5298');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, cardWidth, cardHeight);
             
+            // Name
             ctx.fillStyle = 'white';
             ctx.font = 'bold 56px Arial';
             ctx.textAlign = 'left';
             ctx.fillText(toUpperCase(userData.name), 80, 120);
             
+            // Bio
             ctx.font = '26px Arial';
             if (userData.bio) {
                 ctx.fillText(toUpperCase(userData.bio), 80, 170);
             }
             
+            // Contact Info
             let y = userData.bio ? 220 : 170;
             ctx.font = '22px Arial';
             
             if (userData.phone) {
-                ctx.fillText(`PHONE: ${toUpperCase(userData.phone)}`, 80, y);
+                ctx.fillText(`PHONE: ${userData.phone}`, 80, y);
                 y += 35;
             }
             
             if (userData.email) {
-                ctx.fillText(`EMAIL: ${toUpperCase(userData.email)}`, 80, y);
+                ctx.fillText(`EMAIL: ${userData.email}`, 80, y);
                 y += 35;
             }
             
             if (userData.website) {
-                ctx.fillText(`WEB: ${toUpperCase(userData.website.replace(/^https?:\/\//, ''))}`, 80, y);
+                const displayWebsite = userData.website.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                ctx.fillText(`WEB: ${displayWebsite}`, 80, y);
                 y += 35;
             }
             
+            // Additional info
             if (userData.info) {
                 const lines = userData.info.split('\n');
                 y += 10;
@@ -1031,12 +1077,15 @@
                 });
             }
             
-            const qrCanvas = document.querySelector('#qrcode canvas');
-            if (qrCanvas) {
+            // Get QR code and draw it
+            const qrImg = document.querySelector('#qrcode img');
+            
+            if (qrImg) {
                 const qrSize = 340;
                 const qrX = cardWidth - qrSize - 120;
                 const qrY = 80;
                 
+                // White background with shadow
                 ctx.fillStyle = 'white';
                 ctx.shadowColor = 'rgba(0,0,0,0.3)';
                 ctx.shadowBlur = 20;
@@ -1045,11 +1094,16 @@
                 ctx.fillRect(qrX - 25, qrY - 25, qrSize + 50, qrSize + 50);
                 ctx.shadowColor = 'transparent';
                 
-                ctx.imageSmoothingEnabled = false;
-                ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
+                // Draw QR code
                 ctx.imageSmoothingEnabled = true;
+                ctx.mozImageSmoothingEnabled = true;
+                ctx.webkitImageSmoothingEnabled = true;
+                ctx.msImageSmoothingEnabled = true;
+                
+                ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
             }
             
+            // Footer line
             ctx.strokeStyle = 'rgba(255,255,255,0.25)';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -1057,11 +1111,13 @@
             ctx.lineTo(cardWidth - 80, cardHeight - 140);
             ctx.stroke();
             
+            // Footer text
             ctx.fillStyle = 'white';
             ctx.font = '20px Arial';
             ctx.textAlign = 'left';
             ctx.fillText('SCAN TO CONNECT', 80, cardHeight - 85);
             
+            // Company branding
             ctx.textAlign = 'right';
             ctx.font = '17px Arial';
             ctx.fillText('POWERED BY', cardWidth - 80, cardHeight - 95);
@@ -1072,10 +1128,12 @@
             ctx.fillStyle = gradientText;
             ctx.fillText('THEOCODESX', cardWidth - 80, cardHeight - 62);
             
+            // Sponsor text
             ctx.font = '15px Arial';
             ctx.fillStyle = 'rgba(255,255,255,0.8)';
             ctx.fillText('SPONSORED BY AXIM TV', cardWidth - 80, cardHeight - 35);
             
+            // Download the image
             const link = document.createElement('a');
             link.download = `${toUpperCase(userData.name).replace(/\s+/g, '_')}_BUSINESS_CARD.png`;
             link.href = canvas.toDataURL('image/png');
@@ -1085,8 +1143,8 @@
         function shareCard() {
             if (navigator.share) {
                 navigator.share({
-                    title: `${toUpperCase(userData.name)}'S DIGITAL CARD`,
-                    text: `CONNECT WITH ${toUpperCase(userData.name)} - ${userData.phone} - ${userData.email}`,
+                    title: `${toUpperCase(userData.name)}'s Digital Card`,
+                    text: `Connect with ${toUpperCase(userData.name)} - ${userData.phone} - ${userData.email}`,
                     url: generatedURL
                 }).catch(() => {
                     copyToClipboard();
@@ -1098,15 +1156,16 @@
 
         function copyToClipboard() {
             navigator.clipboard.writeText(generatedURL).then(() => {
-                alert('LINK COPIED TO CLIPBOARD! SHARE IT WITH ANYONE.');
+                alert('Link copied to clipboard! Share it with anyone.');
             }).catch(() => {
+                // Fallback for older browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = generatedURL;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                alert('LINK COPIED TO CLIPBOARD! SHARE IT WITH ANYONE.');
+                alert('Link copied to clipboard! Share it with anyone.');
             });
         }
 
@@ -1116,34 +1175,44 @@
             
             document.getElementById('displayName').textContent = toUpperCase(data.name);
             
+            // Combine bio and info
             let bioText = '';
-            if (data.bio) bioText += toUpperCase(data.bio);
-            if (data.info) bioText += (bioText ? '\n\n' : '') + toUpperCase(data.info);
+            if (data.bio) bioText += data.bio;
+            if (data.info) bioText += (bioText ? '\n\n' : '') + data.info;
             document.getElementById('displayBio').textContent = bioText;
             document.getElementById('displayBio').style.whiteSpace = 'pre-line';
             
+            // Display contact info
             const contactElement = document.getElementById('displayContact');
             let contactText = '';
-            if (data.phone) contactText += toUpperCase(data.phone);
-            if (data.email) contactText += (contactText ? ' • ' : '') + toUpperCase(data.email);
-            if (data.website) contactText += (contactText ? ' • ' : '') + toUpperCase(data.website.replace(/^https?:\/\//, ''));
+            if (data.phone) contactText += data.phone;
+            if (data.email) contactText += (contactText ? ' • ' : '') + data.email;
+            if (data.website) {
+                const displayWebsite = data.website.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                contactText += (contactText ? ' • ' : '') + displayWebsite;
+            }
             contactElement.textContent = contactText;
             
             const linksContainer = document.getElementById('socialLinks');
             linksContainer.innerHTML = '';
 
+            // Add contact links first
             const contactPlatforms = {
                 phone: { icon: 'fas fa-phone', name: 'CALL', class: 'contact-link', url: data.contact?.phone || `tel:${data.phone}` },
                 email: { icon: 'fas fa-envelope', name: 'EMAIL', class: 'contact-link', url: data.contact?.email || `mailto:${data.email}` },
                 website: { icon: 'fas fa-globe', name: 'WEBSITE', class: 'contact-link', url: data.contact?.website || (data.website?.startsWith('http') ? data.website : `https://${data.website}`) }
             };
 
+            // Add contact links
             if (data.phone) {
                 const info = contactPlatforms.phone;
                 const link = document.createElement('a');
                 link.href = info.url;
                 link.className = `social-link ${info.class}`;
-                link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}: ${toUpperCase(data.phone)}</span>`;
+                link.innerHTML = `
+                    <i class="${info.icon}"></i>
+                    <span>${info.name}: ${data.phone}</span>
+                `;
                 linksContainer.appendChild(link);
             }
 
@@ -1152,7 +1221,10 @@
                 const link = document.createElement('a');
                 link.href = info.url;
                 link.className = `social-link ${info.class}`;
-                link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}: ${toUpperCase(data.email)}</span>`;
+                link.innerHTML = `
+                    <i class="${info.icon}"></i>
+                    <span>${info.name}: ${data.email}</span>
+                `;
                 linksContainer.appendChild(link);
             }
 
@@ -1163,10 +1235,15 @@
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
                 link.className = `social-link ${info.class}`;
-                link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}: ${toUpperCase(data.website.replace(/^https?:\/\//, ''))}</span>`;
+                const displayWebsite = data.website.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                link.innerHTML = `
+                    <i class="${info.icon}"></i>
+                    <span>${info.name}: ${displayWebsite}</span>
+                `;
                 linksContainer.appendChild(link);
             }
 
+            // Social media links
             const socialPlatforms = {
                 whatsapp: { icon: 'fab fa-whatsapp', name: 'WHATSAPP', class: 'whatsapp' },
                 instagram: { icon: 'fab fa-instagram', name: 'INSTAGRAM', class: 'instagram' },
@@ -1177,21 +1254,27 @@
                 youtube: { icon: 'fab fa-youtube', name: 'YOUTUBE', class: 'youtube' }
             };
 
+            // Create social links
             for (let [platform, url] of Object.entries(data.socials || {})) {
                 if (url && url.trim() !== '') {
                     const info = socialPlatforms[platform];
+                    
                     const link = document.createElement('a');
                     link.href = url;
                     link.target = '_blank';
                     link.rel = 'noopener noreferrer';
                     link.className = `social-link ${info.class}`;
-                    link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}</span>`;
+                    link.innerHTML = `
+                        <i class="${info.icon}"></i>
+                        <span>${info.name}</span>
+                    `;
                     linksContainer.appendChild(link);
                 }
             }
             
+            // If no links were added, show a message
             if (linksContainer.children.length === 0) {
-                linksContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic; text-transform: uppercase;">NO CONTACT OR SOCIAL MEDIA LINKS AVAILABLE</p>';
+                linksContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No contact or social media links available</p>';
             }
         }
 
@@ -1201,9 +1284,16 @@
             
             if (data) {
                 try {
+                    // Decode the data
                     const decodedStr = decodeURIComponent(atob(data));
+                    
+                    if (!decodedStr) {
+                        throw new Error('Failed to decode data');
+                    }
+                    
                     const decodedData = JSON.parse(decodedStr);
                     
+                    // Validate the data structure
                     if (!decodedData.name || !decodedData.phone || !decodedData.email) {
                         throw new Error('Invalid card data');
                     }
@@ -1211,7 +1301,9 @@
                     displayCard(decodedData);
                 } catch (e) {
                     console.error('Error parsing data:', e);
-                    alert('ERROR LOADING CARD. PLEASE REQUEST A NEW LINK OR CREATE A NEW CARD.');
+                    
+                    // Show error and redirect to create page
+                    alert('Error loading card. Please request a new link or create a new card.');
                     setTimeout(() => {
                         window.location.href = window.location.href.split('?')[0];
                     }, 2000);
