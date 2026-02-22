@@ -263,14 +263,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 200px;
-            height: 200px;
+            width: 800px;
+            height: 800px;
         }
 
         #qrcode canvas, #qrcode img {
             border-radius: 8px;
-            width: 200px !important;
-            height: 200px !important;
+            width: 800px !important;
+            height: 800px !important;
             object-fit: contain;
         }
 
@@ -529,39 +529,54 @@
             }
 
             .card-inner {
-                padding: 25px 20px;
+                padding: 20px 15px;
             }
 
             .card-header {
                 flex-direction: column;
-                gap: 20px;
+                gap: 25px;
                 margin-bottom: 20px;
             }
 
             .card-name {
-                font-size: 22px;
+                font-size: 19px;
+                margin-bottom: 6px;
             }
 
             .card-bio {
-                font-size: 13px;
+                font-size: 12px;
+                margin-bottom: 4px;
             }
 
-            .card-info, .card-contact {
-                font-size: 12px;
+            .card-info {
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+
+            .card-contact {
+                font-size: 11px;
+            }
+
+            .contact-item {
+                margin-bottom: 3px;
+                font-size: 10px;
             }
 
             .qr-section {
                 align-self: center;
+                padding: 10px;
+                display: flex;
+                justify-content: center;
             }
 
             #qrcode {
-                width: 150px;
-                height: 150px;
+                width: 500px;
+                height: 500px;
             }
 
             #qrcode canvas, #qrcode img {
-                width: 150px !important;
-                height: 150px !important;
+                width: 500px !important;
+                height: 500px !important;
             }
 
             .card-footer {
@@ -868,7 +883,7 @@
             const tiktok = document.getElementById('tiktok').value.trim();
             const youtube = document.getElementById('youtube').value.trim();
 
-            // Create user data object
+            // Create user data object with SHORT KEYS to reduce URL length
             userData = {
                 name: name,
                 phone: phone,
@@ -892,13 +907,13 @@
                 }
             };
 
-            // Create compact URL-safe data
-            const dataStr = JSON.stringify(userData);
-            // Use simple base64 encoding without extra URI encoding
-            const encodedData = btoa(unescape(encodeURIComponent(dataStr)));
+            // Create compact QR data with only essential info for SIMPLER QR CODE
+            // Use pipe-delimited format (much simpler than JSON)
+            const qrDataStr = `${name}|${phone}|${email}`;
+            const encodedQRData = btoa(unescape(encodeURIComponent(qrDataStr)));
             
             const currentURL = window.location.href.split('?')[0];
-            generatedURL = currentURL + '?d=' + encodedData;
+            generatedURL = currentURL + '?d=' + encodedQRData;
 
             // Generate QR Code
             const qrcodeDiv = document.getElementById('qrcode');
@@ -913,11 +928,12 @@
                 // Create new QRCode instance
                 new QRCode(qrcodeDiv, {
                     text: generatedURL,
-                    width: 200,
-                    height: 200,
+                    width: 800,
+                    height: 800,
                     colorDark: '#000000',
                     colorLight: '#ffffff',
-                    correctLevel: QRCode.CorrectLevel.M // Use Medium instead of High for better scanning
+                    correctLevel: QRCode.CorrectLevel.L, // Simplest pattern possible
+                    margin: 4 // Maximum margin for simplest pattern
                 });
                 
                 // Log URL length for debugging
@@ -935,11 +951,11 @@
                 // Fallback: Use Google Charts API
                 try {
                     const img = document.createElement('img');
-                    const qrUrl = `https://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=M|0&chl=${encodeURIComponent(generatedURL)}`;
+                    const qrUrl = `https://chart.googleapis.com/chart?cht=qr&chs=800x800&chld=L|4&chl=${encodeURIComponent(generatedURL)}`;
                     img.src = qrUrl;
                     img.alt = 'QR Code';
-                    img.style.width = '200px';
-                    img.style.height = '200px';
+                    img.style.width = '800px';
+                    img.style.height = '800px';
                     img.style.borderRadius = '8px';
                     
                     img.onload = function() {
@@ -1153,62 +1169,33 @@
             const linksContainer = document.getElementById('socialLinks');
             linksContainer.innerHTML = '';
 
-            const contactPlatforms = {
-                phone: { icon: 'fas fa-phone', name: 'CALL', class: 'contact-link', url: data.contact?.phone || `tel:${data.phone}` },
-                email: { icon: 'fas fa-envelope', name: 'EMAIL', class: 'contact-link', url: data.contact?.email || `mailto:${data.email}` },
-                website: { icon: 'fas fa-globe', name: 'WEBSITE', class: 'contact-link', url: data.contact?.website || (data.website?.startsWith('http') ? data.website : `https://${data.website}`) }
-            };
-
+            // Phone contact link
             if (data.phone) {
-                const info = contactPlatforms.phone;
                 const link = document.createElement('a');
-                link.href = info.url;
-                link.className = `social-link ${info.class}`;
-                link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}: ${toUpperCase(data.phone)}</span>`;
+                link.href = `tel:${data.phone}`;
+                link.className = `social-link contact-link`;
+                link.innerHTML = `<i class="fas fa-phone"></i><span>CALL: ${toUpperCase(data.phone)}</span>`;
                 linksContainer.appendChild(link);
             }
 
+            // Email contact link
             if (data.email) {
-                const info = contactPlatforms.email;
                 const link = document.createElement('a');
-                link.href = info.url;
-                link.className = `social-link ${info.class}`;
-                link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}: ${toUpperCase(data.email)}</span>`;
+                link.href = `mailto:${data.email}`;
+                link.className = `social-link contact-link`;
+                link.innerHTML = `<i class="fas fa-envelope"></i><span>EMAIL: ${toUpperCase(data.email)}</span>`;
                 linksContainer.appendChild(link);
             }
 
+            // Website link
             if (data.website) {
-                const info = contactPlatforms.website;
                 const link = document.createElement('a');
-                link.href = info.url;
+                link.href = data.website.startsWith('http') ? data.website : `https://${data.website}`;
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
-                link.className = `social-link ${info.class}`;
-                link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}: ${toUpperCase(data.website.replace(/^https?:\/\//, ''))}</span>`;
+                link.className = `social-link contact-link`;
+                link.innerHTML = `<i class="fas fa-globe"></i><span>WEBSITE: ${toUpperCase(data.website.replace(/^https?:\/\//, ''))}</span>`;
                 linksContainer.appendChild(link);
-            }
-
-            const socialPlatforms = {
-                whatsapp: { icon: 'fab fa-whatsapp', name: 'WHATSAPP', class: 'whatsapp' },
-                instagram: { icon: 'fab fa-instagram', name: 'INSTAGRAM', class: 'instagram' },
-                facebook: { icon: 'fab fa-facebook', name: 'FACEBOOK', class: 'facebook' },
-                twitter: { icon: 'fab fa-x-twitter', name: 'TWITTER/X', class: 'twitter' },
-                linkedin: { icon: 'fab fa-linkedin', name: 'LINKEDIN', class: 'linkedin' },
-                tiktok: { icon: 'fab fa-tiktok', name: 'TIKTOK', class: 'tiktok' },
-                youtube: { icon: 'fab fa-youtube', name: 'YOUTUBE', class: 'youtube' }
-            };
-
-            for (let [platform, url] of Object.entries(data.socials || {})) {
-                if (url && url.trim() !== '') {
-                    const info = socialPlatforms[platform];
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.className = `social-link ${info.class}`;
-                    link.innerHTML = `<i class="${info.icon}"></i><span>${info.name}</span>`;
-                    linksContainer.appendChild(link);
-                }
             }
             
             if (linksContainer.children.length === 0) {
@@ -1231,7 +1218,24 @@
                         decodedStr = decodeURIComponent(atob(data));
                     }
                     
-                    const decodedData = JSON.parse(decodedStr);
+                    // Check if it's pipe-delimited format (new) or JSON (old)
+                    let decodedData;
+                    if (decodedStr.includes('|')) {
+                        // New pipe-delimited format: name|phone|email
+                        const parts = decodedStr.split('|');
+                        decodedData = {
+                            name: parts[0] || '',
+                            phone: parts[1] || '',
+                            email: parts[2] || '',
+                            bio: '',
+                            info: '',
+                            website: '',
+                            socials: {}
+                        };
+                    } else {
+                        // Old JSON format
+                        decodedData = JSON.parse(decodedStr);
+                    }
                     
                     if (!decodedData.name || !decodedData.phone || !decodedData.email) {
                         throw new Error('Invalid card data');
